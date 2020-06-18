@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "Trevor Vaughn Hauck",
   "license": "MIT",
+  "node version": "12.13.0",
   "scripts": {
     "start": "node index.js",
     "client": "cd client && yarn start",

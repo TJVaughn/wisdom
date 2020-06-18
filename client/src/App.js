@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Quote from './Quote';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <h2>NEATO</h2>
+      {/* <h1>Wisd.io</h1>$53 */}
+      <h1>AncientQuote.com</h1>
+      <h3>Your Daily Dose Of Ancient Wisdom</h3>
+      <h5>Today's Quote: </h5>
+      <Quote />
+      <h2>Quote's in your inbox</h2>
+      <p>
+        Get the quote of the day automatically in your inbox every day!
+      </p>
+      <p>
+        
+      </p>
+      <form>
+        <label>email</label><br />
+        <input /><br />
+        We will never spam you or anything weird, just quotes!<br />
+        <button>submit</button>
+      </form>
     </div>
   );
 }
