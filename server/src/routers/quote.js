@@ -1,6 +1,62 @@
 const express = require('express')
 const Quote = require('../models/Quote')
+const User = require('../models/User')
+const mongoose = require('mongoose')
+const sendVerificationEmail = require('../email/sendVerificationEmail')
 const router = new express.Router()
+
+//email signup
+router.post('/api/signup', async (req, res) => {
+    try {
+        //is the email already in the database
+        //if so, send error
+        const user = new User({
+            email: req.body.email,
+            verificationCode: new mongoose.Types.ObjectId(),
+            isVerified: false
+        })
+        let users = await User.find({})
+        for (let i = 0; i < users.length; i++){
+            if (user.email === users[i].email){
+                return res.send({error: "Email already exists."})
+            }
+        }
+        //send email with link
+        //await sendVerificationEmail(user.email, user.verificationCode)
+        await sendVerificationEmail(user.email, user.verificationCode)
+
+        await user.save()
+        return res.send({user})
+        //otherwise send an email with a link
+        //when that link is clicked it will simply take the user to a page that says successfully verified!
+        //the link will hold the params of the users email, and a code generated when they signup initially, stored on the user model
+        //if that page is visited, the email and code will be posted to /api/verify and if the verification is successful it will update the users data.
+
+        // let user = await new 
+    } catch (error) {
+        return {error: "Error from signup: " + error}
+    }
+})
+//verify email route
+router.get('/api/email/verify-email', async(req, res) =>{
+    try {
+
+        const email = req.query.email
+        const code = req.query.id
+        const user = await User.findOne({email: email})
+        if(!user){
+            return res.status(404).send({error: 'user not found'})
+        }
+        if(code !== user.verificationCode){
+            return res.send({error: "Invalid code"})
+        }
+        user.isVerified = true
+        await user.save()
+        return res.send({success: "Successfully verified!"})
+    } catch (error) {   
+        return {error: "Error from verify email: " + error}
+    }
+})
 
 //add a new quote with authorization
 router.post('/api/quote/add', async (req, res) => {

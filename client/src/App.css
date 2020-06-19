@@ -12,3 +12,11 @@
   letter-spacing: 0.1em;
   border-radius: 5px;
 }
+blockquote {
+  font-family: 'Courgette', cursive;
+
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}

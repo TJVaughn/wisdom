@@ -26,9 +26,9 @@ export default function Quote(){
             <blockquote>
                 "{message}"
                 <br />
-                --{source}
+                
             </blockquote>
-            
+            --{source}  
         </div>
     )
 }
