@@ -20,7 +20,7 @@ const sendVerificationEmail = async (email, code) => {
         </h3>
         <hr />
         <p>
-            If you believe this to be an error, <a href="${url}/email/unsubscribe/${email}" >click here</a>
+        If you believe this to be an error and wish to unsubscribe, <a href="${url}/email/unsubscribe?email=${email}" >click here</a>
         </p>
         `,
       };
