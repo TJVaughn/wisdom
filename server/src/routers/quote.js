@@ -4,6 +4,24 @@ const User = require('../models/User')
 const mongoose = require('mongoose')
 const sendVerificationEmail = require('../email/sendVerificationEmail')
 const router = new express.Router()
+const agenda = require('../jobs/agenda')
+
+router.post('/api/start-stop-daily-email', async(req, res) => {
+    //only one user, no need to add a whole thing for auth
+    if(req.body.userName !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){
+        return res.send({error: "nah"})
+    }
+    if(req.body.daily === 'start'){
+        await agenda.start()
+        // await agenda.every('10 seconds', 'pickQOTD')
+        await agenda.schedule('1 second', 'pickQOTD')
+        return res.send({message: "starting..."})
+    }
+    if(req.body.daily === 'stop'){
+        await agenda.stop()
+        return res.send({message: 'stopping...'})
+    }
+})
 
 //email signup
 router.post('/api/signup', async (req, res) => {
@@ -71,6 +89,7 @@ router.post('/api/quote/add', async (req, res) => {
             qotd: false
         })
         await quote.save()
+        
         return res.send({quote})
     } catch (error) {
         return {error: "Error from add quote: " + error}

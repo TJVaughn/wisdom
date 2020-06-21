@@ -1,8 +1,15 @@
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const User = require('../models/User')
 
+const sendDailyQuote = async (quote) => {
+    const allUsers = await User.find({isVerified: true})
+    for (let i = 0; i < allUsers.length; i ++){
+        await sendEmail(allUsers[i].email, quote)
+    }
+}
 
-const sendDailyQuote = async (email, quote) => {
+const sendEmail = async (email, quote) => {
     let url = ''
     if(process.env.PRODUCTION){
         url = 'https://ancientwisdom.io'
