@@ -10,7 +10,8 @@
     "start": "node index.js",
     "client": "cd client && yarn start",
     "server": "env-cmd -f ./server/config/dev.env nodemon index.js",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.2.0",
