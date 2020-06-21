@@ -4,7 +4,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendVerificationEmail = async (email, code) => {
     let url = ''
-    if(process.env.PRODUCTION){
+    if(process.env.NODE_ENV === 'production'){
         url = 'https://ancientwisdom.io'
     } else {
         url = 'http://localhost:3000'
