@@ -1,0 +1,56 @@
+.App {
+  margin: 10px 20%;
+  @media only screen and(max-width: 765px){
+    margin: 10px;
+
+  }
+}
+.Quote {
+  background: linear-gradient(45deg, green, blue);
+  text-align: center;
+  padding: 50px 0;
+  margin: 25px 0;
+  font-weight: 700;
+  font-size: 2em;
+  color: #fff;
+  letter-spacing: 0.1em;
+  border-radius: 5px;
+}
+blockquote {
+  font-family: 'Courgette', cursive;
+  margin: 5px;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+a {
+  color: #254dc6;
+  text-decoration: none;
+}
+a:visited {
+  color: #254dc6;
+  text-decoration: none;
+}
+input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 2px;
+}
+button {
+  width: 200px;
+  height: 50px;
+  color: #fff;
+  font-size: 1.5em;
+  margin: 5px auto;
+  display: block;
+  background: linear-gradient(45deg, red, blue);
+  border: 2px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.quiet {
+  font-size: 0.8em;
+  color: #777;
+}

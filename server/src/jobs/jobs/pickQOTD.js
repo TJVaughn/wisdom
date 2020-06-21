@@ -19,7 +19,7 @@ module.exports = (agenda) => {
         const currQOTD = await Quote.findOne({qotd: true})
         currQOTD.qotd = false;
         await currQOTD.save()
-        let quotes = await Quote.find({})
+        let quotes = await Quote.find({qotd: false})
         shuffle(quotes)
         // console.log(shuffledQuotes)
         let randNum = Math.floor(Math.random() * (quotes.length + 1))

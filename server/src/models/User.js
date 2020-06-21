@@ -70,11 +70,7 @@ userSchema.pre('save', async function(next) {
     next()
 })
 
-userSchema.pre('remove', async function(next) {
-    const user = this
-    await Event.deleteMany({ owner: user._id })
-    next()
-})
+
 
 // userSchema.statics.findByCredentials = async (email, pass) => {
 //     const user = await User.findOne({email})

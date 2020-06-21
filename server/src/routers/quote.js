@@ -106,6 +106,20 @@ router.get('/api/quote', async (req, res) => {
     }
 })
 
+//unsubscribe email
+router.get('/api/email/unsubscribe-email', async (req, res) => {
+    try {   
+        const email = req.query.email
+        const user = await User.findOne({email: email})
+        if(!user) {
+            return res.send({error: "No user found!"})
+        }
+        await user.remove()
+        return res.send({success: `${email} has been unsubscribed.`})
+    } catch (error) {
+        return {error: "Error from unsubscribe: " + error}
+    }
+})
 
 //------------------------------------------------------------------------------------------------
 //remove a quote -- do this manually?
