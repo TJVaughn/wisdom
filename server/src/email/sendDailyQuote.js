@@ -11,7 +11,7 @@ const sendDailyQuote = async (email, quote) => {
     }
     const msg = {
         to: email,
-        from: '',
+        from: 'quote@ancientwisdom.io',
         subject: 'Your Daily Quote',
         html: `
         <h3>
