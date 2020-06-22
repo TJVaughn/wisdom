@@ -32,8 +32,8 @@ module.exports = (agenda) => {
             let newQOTD = quotes[randNum]
             newQOTD.qotd = true
             await newQOTD.save()
-            // await sendDailyQuote(newQOTD)
-            
+            await sendDailyQuote(newQOTD)
+
             // job.repeatEvery('0 6 * * *', {
             //     timezone: 'America/New_York'
             // })
