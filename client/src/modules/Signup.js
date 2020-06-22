@@ -35,7 +35,7 @@ class Signup extends Component {
     render(){
     	return(
     		<div>
-                <h2>Quote's in your inbox</h2>
+                <h2>Quotes in your inbox</h2>
                 <p>
                     Get the quote of the day automatically in your inbox every day!
                 </p>

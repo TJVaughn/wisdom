@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Quote from './Quote';
-import Signup from './Signup';
+import Quote from './modules/Quote';
+import Signup from './modules/Signup';
 import VerifyEmailRouter from './modules/VerifyEmailRouter';
 import UnsubscribeEmailRouter from './modules/UnsubscribeEmailRouter';
+import Charities from './modules/Charities';
+import AddQuoteRouter from './modules/AddQuoteRouter';
 
 
 function IndexRouter(props){
@@ -12,10 +14,8 @@ function IndexRouter(props){
             
             <h5>Today's Quote: </h5>
             <Quote />
-            <p>
-                <a href="https://paypal.me/VaughnWebdevelopment?locale.x=en_US">Buy me a coffee (paypal)</a>
-            </p>
             <Signup />
+            <Charities />
         </div>
     )
 }
@@ -37,6 +37,7 @@ class AppRouter extends Component {
                         <Route exact path={'/'} component={IndexRouter} />
                         <Route path={`/email/verify`} component={VerifyEmailRouter} />
                         <Route path={`/email/unsubscribe`} component={UnsubscribeEmailRouter} />
+                        <Route path={'/quote/add'} component={AddQuoteRouter} />
                     </Switch>
                 </Router>
     		</div>

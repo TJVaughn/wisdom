@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import './AddQuote.scss'
 import AppRouter from './AppRouter';
 
 function App() {

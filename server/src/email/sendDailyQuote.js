@@ -29,9 +29,9 @@ const sendEmail = async (email, quote) => {
         </h5>
         <hr />
         <p>
-                <a href="https://paypal.me/VaughnWebdevelopment?locale.x=en_US">Buy me a coffee</a>
-            </p>
-            <hr />
+            <a href="${quote.charity.link}" >${quote.charity.name}</a>
+        </p>
+        <hr />
         <p>
             We'd hate to see you go, but if you wish to <a href="${url}/email/unsubscribe?email=${email}" >unsubscribe</a>, we understand.
         </p>

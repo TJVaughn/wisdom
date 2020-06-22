@@ -14,6 +14,12 @@ const quoteSchema = new mongoose.Schema({
     },
     lastDate: {
         type: String
+    },
+    type: {
+        type: String
+    },
+    charity: {
+        type: Object
     }
 }, {
     timestamps: true

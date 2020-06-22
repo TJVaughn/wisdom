@@ -5,10 +5,11 @@ const mongoose = require('mongoose')
 const sendVerificationEmail = require('../email/sendVerificationEmail')
 const router = new express.Router()
 const agenda = require('../jobs/agenda')
+const nativeQuotes = require('../rawHtml/NativeQuotes')
 
-router.post('/api/start-stop-daily-email', async(req, res) => {
+router.post('/api/pick-new-quote', async(req, res) => {
     //only one user, no need to add a whole thing for auth
-    if(req.body.userName !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){
+    if(req.body.username !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){
         return res.send({error: "nah"})
     }
     if(req.body.daily === 'start'){
@@ -17,10 +18,7 @@ router.post('/api/start-stop-daily-email', async(req, res) => {
         await agenda.schedule('1 second', 'pickQOTD')
         return res.send({message: "starting..."})
     }
-    if(req.body.daily === 'stop'){
-        await agenda.stop()
-        return res.send({message: 'stopping...'})
-    }
+
 })
 
 //email signup
@@ -79,13 +77,37 @@ router.get('/api/email/verify-email', async(req, res) =>{
 //add a new quote with authorization
 router.post('/api/quote/add', async (req, res) => {
     try {
+        // console.log(req.body.username)
         //only one user, no need to add a whole thing for auth
-        if(req.body.userName !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){
+        if(req.body.username !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){
             return res.send({error: "nah"})
         }
+        let charity = {
+            link: '',
+            name: ''
+        }
+        if(req.body.type === 'African'){
+            charity = {
+                link: 'https://thewaterproject.org/',
+                name: 'The Water Project'
+            }
+        } else if(req.body.type === 'Stoic'){
+            charity = {
+                name: 'Buy me a coffee (paypal)',
+                link: "https://paypal.me/VaughnWebdevelopment?locale.x=en_US"
+            }
+        } else if(req.body.type === 'Native American') {
+            charity = {
+                link: "http://www.nativepartnership.org/site/PageServer?pagename=pwna_home",
+                name: "Partnership With Native Americans"
+            }
+        }
+        
         const quote = new Quote({
             message: req.body.message,
             source: req.body.source,
+            type: req.body.type,
+            charity: charity,
             qotd: false
         })
         await quote.save()
@@ -120,7 +142,12 @@ router.get('/api/email/unsubscribe-email', async (req, res) => {
         return {error: "Error from unsubscribe: " + error}
     }
 })
-
+router.get('/parse-content', async (req, res) => {
+    let content = nativeQuotes
+    content = content.toString()
+    content = content.split('</p>')
+    return res.send(content)
+})
 //------------------------------------------------------------------------------------------------
 //remove a quote -- do this manually?
 //update a quote -- do this manually?

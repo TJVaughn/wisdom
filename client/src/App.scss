@@ -6,7 +6,7 @@
   }
 }
 .Quote {
-  background: linear-gradient(45deg, green, blue);
+  background: linear-gradient(45deg, purple, blue);
   text-align: center;
   padding: 50px 0;
   margin: 25px 0;
@@ -45,7 +45,7 @@ button {
   font-size: 1.5em;
   margin: 5px auto;
   display: block;
-  background: linear-gradient(45deg, red, blue);
+  background: linear-gradient(45deg, purple, blue);
   border: 2px solid #fff;
   border-radius: 5px;
   cursor: pointer;
@@ -53,4 +53,21 @@ button {
 .quiet {
   font-size: 0.8em;
   color: #777;
+}
+.Charities {
+  // border: 1px solid #254dc6;
+  // border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  text-align: center;
+  a {
+    border: 1px solid #254dc6;
+    border-radius: 5px;
+    font-size: 1.5em;
+    font-weight: 700;
+    padding: 3px;
+  }
+  // background: linear-gradient(45deg, blue, purple);
+  // color: #FFF;
+  padding: 5px;
 }
