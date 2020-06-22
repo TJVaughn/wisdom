@@ -16,27 +16,36 @@ const shuffle = (array) => {
 
 module.exports = (agenda) => {
     agenda.define('pickQOTD', {priority: 20}, async (job, done) => {
-        const currQOTD = await Quote.findOne({qotd: true})
-        currQOTD.qotd = false;
-        await currQOTD.save()
-        let quotes = await Quote.find({qotd: false})
-        shuffle(quotes)
-        // console.log(shuffledQuotes)
-        let randNum = Math.floor(Math.random() * (quotes.length + 1))
-        console.log(randNum)
-        let newQOTD = quotes[randNum]
-        newQOTD.qotd = true
-        await newQOTD.save()
-        await sendDailyQuote(newQOTD)
-        job.repeatEvery('0 6 * * *', {
-            timezone: 'America/New_York'
-        })
-        // job.repeatEvery('10 seconds')
-        await job.save()
-        // await job.remove()
+        try {
+            console.log("hello")
+            let currQOTD = await Quote.findOne({qotd: true})
 
+            let quotes = await Quote.find({qotd: false})
+            currQOTD.qotd = false;
+            await currQOTD.save()
+            console.log(currQOTD)
+
+            shuffle(quotes)
+            // console.log(shuffledQuotes)
+            let randNum = Math.floor(Math.random() * (quotes.length))
+            console.log(randNum)
+            let newQOTD = quotes[randNum]
+            newQOTD.qotd = true
+            await newQOTD.save()
+            // await sendDailyQuote(newQOTD)
+            
+            // job.repeatEvery('0 6 * * *', {
+            //     timezone: 'America/New_York'
+            // })
+            // job.repeatEvery('10 seconds')
+            // await job.save()
+            // await job.remove()
+            done()
+        } catch (error) {
+            throw new Error("Error in pick qotd: " + error)
+        }
         
-        done()
     })
-    // agenda.every('day ', 'pickQOTD')
+    // agenda.every('5 seconds', 'pickQOTD')
+
 }
