@@ -21,17 +21,24 @@ const sendEmail = async (email, quote) => {
         from: 'quote@ancientwisdom.io',
         subject: 'Your Daily Quote',
         html: `
-        <h3>
+        <h1>Your Quote: </h1>
+        <h2>
             "${quote.message}"
-        </h3>
-        <h5>
+        </h2>
+        <h3>
             --${quote.source}
-        </h5>
+        </h3>
         <hr />
+        <p>
+            Interested in helping?
+        </p>
         <p>
             <a href="${quote.charity.link}" >${quote.charity.name}</a>
         </p>
         <hr />
+        <p>
+        ...
+        </p>
         <p>
             We'd hate to see you go, but if you wish to <a href="${url}/email/unsubscribe?email=${email}" >unsubscribe</a>, we understand.
         </p>

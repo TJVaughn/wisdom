@@ -111,6 +111,7 @@ class AddQuoteRouter extends Component {
                     </select>
                     <label>Type</label>
                     <select name="type" value={this.state.type} onChange={this.handleChange}>
+                        <option>type</option>
                         <option>African</option>
                         <option>Native American</option>
                         <option>Stoic</option>
