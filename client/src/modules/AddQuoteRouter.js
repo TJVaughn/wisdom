@@ -55,7 +55,7 @@ class AddQuoteRouter extends Component {
                     <label>Username</label>
                     <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
                     <label>Password</label>
-                    <input type="text" type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+                    <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
                     <label>Message</label>
                     <input type="text" name="message" value={this.state.message} onChange={this.handleChange} />
                     <label>Source</label>
@@ -64,6 +64,7 @@ class AddQuoteRouter extends Component {
                         <option>Marcus Aurelius</option>
                         <option>Lucius Annaeus Seneca</option>
                         <option>Epictetus</option>
+                        <option></option>
                         <option>Seneca</option>
                         <option>Tuscarora</option>
                         <option>Arapaho</option>
@@ -103,10 +104,6 @@ class AddQuoteRouter extends Component {
                         <option>Winnebago</option>
                         <option>Zuni</option>
                         <option>Yurok</option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
                         <option>Tribe Unknown</option>
                     </select>
                     <label>Type</label>

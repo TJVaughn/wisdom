@@ -33,13 +33,9 @@ module.exports = (agenda) => {
             newQOTD.qotd = true
             await newQOTD.save()
             await sendDailyQuote(newQOTD)
-
-            // job.repeatEvery('0 6 * * *', {
-            //     timezone: 'America/New_York'
-            // })
-            // job.repeatEvery('10 seconds')
-            // await job.save()
-            // await job.remove()
+            if(job.attrs.data.oneOff){
+                await job.remove()
+            }
             done()
         } catch (error) {
             throw new Error("Error in pick qotd: " + error)

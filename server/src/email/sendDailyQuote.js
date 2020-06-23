@@ -10,6 +10,14 @@ const sendDailyQuote = async (quote) => {
 }
 
 const sendEmail = async (email, quote) => {
+    let today = new Date()
+    let coffee = ''
+    // console.log(today.getDay())
+    if(today.getDay() === 5){
+        coffee = `<a target="_blank" rel="noopener noreferrer" href="https://paypal.me/VaughnWebdevelopment?locale.x=en_US">buy me a coffee (paypal)</a><p>
+        ...
+        </p>`
+    }
     let url = ''
     if(process.env.NODE_ENV === 'production'){
         url = 'https://ancientwisdom.io'
@@ -36,9 +44,12 @@ const sendEmail = async (email, quote) => {
             <a href="${quote.charity.link}" >${quote.charity.name}</a>
         </p>
         <hr />
+
         <p>
         ...
         </p>
+        ${coffee}
+        
         <p>
             We'd hate to see you go, but if you wish to <a href="${url}/email/unsubscribe?email=${email}" >unsubscribe</a>, we understand.
         </p>

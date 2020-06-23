@@ -6,6 +6,7 @@ const sendVerificationEmail = require('../email/sendVerificationEmail')
 const router = new express.Router()
 const agenda = require('../jobs/agenda')
 const nativeQuotes = require('../rawHtml/NativeQuotes')
+const { default: Axios } = require('axios')
 
 router.post('/api/pick-new-quote', async(req, res) => {
     //only one user, no need to add a whole thing for auth
@@ -15,10 +16,24 @@ router.post('/api/pick-new-quote', async(req, res) => {
     if(req.body.daily === 'start'){
         await agenda.start()
         // await agenda.every('10 seconds', 'pickQOTD')
-        await agenda.schedule('1 second', 'pickQOTD')
+        await agenda.schedule('1 second', 'pickQOTD', {oneOff: true})
         return res.send({message: "starting..."})
     }
 
+})
+
+router.post('/api/test/tweet', async (req, res) => {
+    try {
+        let twitterRes = await Axios({
+            url: 'https://api.twitter.com/1.1/statuses/update.json?status=test',
+            headers: {
+                authorization: 'OAuth'
+            }
+        })
+        return res.send(twitterRes)
+    } catch (error) {
+        return {error: "Error from tweet: " + error}
+    }
 })
 
 //email signup
@@ -93,8 +108,8 @@ router.post('/api/quote/add', async (req, res) => {
             }
         } else if(req.body.type === 'Stoic'){
             charity = {
-                name: 'Buy me a coffee (paypal)',
-                link: "https://paypal.me/VaughnWebdevelopment?locale.x=en_US"
+                name: 'The Loveland Foundation',
+                link: "https://thelovelandfoundation.org/"
             }
         } else if(req.body.type === 'Native American') {
             charity = {

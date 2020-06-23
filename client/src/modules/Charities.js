@@ -10,13 +10,16 @@ export default function Charities (){
                     <a target="_blank" rel="noopener noreferrer" href="https://thewaterproject.org/">The Water Project</a>
                 </p> 
                 <p>
+                    <a target="_blank" rel="noopener noreferrer" href="https://thelovelandfoundation.org/">The Loveland Foundation</a>
+                </p>
+                <p>
                     <a target="_blank" rel="noopener noreferrer" href="http://www.nativepartnership.org/site/PageServer?pagename=pwna_home">Partnership With Native Americans</a>
                 </p> 
             </div>
             
-            <p>
-                or <a target="_blank" rel="noopener noreferrer" href="https://paypal.me/VaughnWebdevelopment?locale.x=en_US">Buy me a coffee (paypal)</a>
-            </p>   
+            {/* <p>
+                or <a target="_blank" rel="noopener noreferrer" href="https://paypal.me/VaughnWebdevelopment?locale.x=en_US">buy me a coffee (paypal)</a>
+            </p>    */}
         </div>
     )
 }
