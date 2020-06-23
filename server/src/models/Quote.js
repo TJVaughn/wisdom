@@ -12,7 +12,7 @@ const quoteSchema = new mongoose.Schema({
     qotd: {
         type: Boolean
     },
-    lastDate: {
+    lastDateWasQotd: {
         type: String
     },
     type: {

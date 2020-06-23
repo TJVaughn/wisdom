@@ -12,27 +12,34 @@ const shuffle = (array) => {
     }
     // return array
 }
-
+const filterRecentQuotes = (quotes) => {
+    let oneMonthAgo = (Date.now() - 2592000 * 1000)
+    let newQuotes = []
+    for (let i = 0; i < quotes.length; i ++ ){
+        if(quotes[i].lastDateWasQotd < oneMonthAgo || !quotes[i].lastDateWasQotd) {
+            newQuotes.push(quotes[i])
+        }
+    }   
+    return newQuotes
+}
 
 module.exports = (agenda) => {
     agenda.define('pickQOTD', {priority: 20}, async (job, done) => {
         try {
-            console.log("hello")
             let currQOTD = await Quote.findOne({qotd: true})
 
             let quotes = await Quote.find({qotd: false})
+            quotes = filterRecentQuotes(quotes)
             currQOTD.qotd = false;
             await currQOTD.save()
-            console.log(currQOTD)
-
             shuffle(quotes)
-            // console.log(shuffledQuotes)
             let randNum = Math.floor(Math.random() * (quotes.length))
-            console.log(randNum)
             let newQOTD = quotes[randNum]
             newQOTD.qotd = true
+            newQOTD.lastDateWasQotd = Date.now()
+            // console.log(new Date(newQOTD.lastDateWasQotd - 2592000 * 1000))
             await newQOTD.save()
-            await sendDailyQuote(newQOTD)
+            // await sendDailyQuote(newQOTD)
             if(job.attrs.data.oneOff){
                 await job.remove()
             }
