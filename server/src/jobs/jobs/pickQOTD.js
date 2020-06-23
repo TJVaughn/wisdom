@@ -39,7 +39,7 @@ module.exports = (agenda) => {
             newQOTD.lastDateWasQotd = Date.now()
             // console.log(new Date(newQOTD.lastDateWasQotd - 2592000 * 1000))
             await newQOTD.save()
-            // await sendDailyQuote(newQOTD)
+            await sendDailyQuote(newQOTD)
             if(job.attrs.data.oneOff){
                 await job.remove()
             }
