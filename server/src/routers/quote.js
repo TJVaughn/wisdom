@@ -5,9 +5,9 @@ const mongoose = require('mongoose')
 const sendVerificationEmail = require('../email/sendVerificationEmail')
 const router = new express.Router()
 const agenda = require('../jobs/agenda')
-const nativeQuotes = require('../rawHtml/NativeQuotes')
+// const nativeQuotes = require('../rawHtml/NativeQuotes')
 const { default: Axios } = require('axios')
-const africanQuotes = require('../rawHtml/AfricanQuotes')
+// const africanQuotes = require('../rawHtml/AfricanQuotes')
 
 router.post('/api/pick-new-quote', async(req, res) => {
     //only one user, no need to add a whole thing for auth
@@ -158,37 +158,46 @@ router.get('/api/email/unsubscribe-email', async (req, res) => {
         return {error: "Error from unsubscribe: " + error}
     }
 })
-router.get('/parse-content', async (req, res) => {
-    let content = africanQuotes
-    content = content.split(/\n/)
-    for(let i = 0; i < content.length; i ++) {
-        content[i] = content[i].split('~')
+router.get('/api/remove-quotes-string-id', async(req, res) => {
+    const quotes = await Quote.find({})
+    for (let i = 0; i < quotes.length; i ++){
+        if(typeof quotes[i]._id === 'string'){
+            await quotes[i].remove()
+        }
     }
-    let quotes = []
-    for(let i = 0; i < content.length; i++){
-        let message = content[i][0].trim()
-        let source = content[i][1].trim()
-        // let quote = {
-        //     message,
-        //     source
-        // }
-        const newQuote = new Quote({
-            message: message,
-            source: source,
-            type: "African",
-            charity: {
-                link: 'https://thewaterproject.org/',
-                name: 'The Water Project'
-            },
-            qotd: false
-        })
-        await newQuote.save()
-        quotes.push(newQuote)
-
-    }
-    
     return res.send(quotes)
 })
+// router.get('/parse-content', async (req, res) => {
+//     let content = africanQuotes
+//     content = content.split(/\n/)
+//     for(let i = 0; i < content.length; i ++) {
+//         content[i] = content[i].split('~')
+//     }
+//     let quotes = []
+//     for(let i = 0; i < content.length; i++){
+//         let message = content[i][0].trim()
+//         let source = content[i][1].trim()
+//         // let quote = {
+//         //     message,
+//         //     source
+//         // }
+//         const newQuote = new Quote({
+//             message: message,
+//             source: source,
+//             type: "African",
+//             charity: {
+//                 link: 'https://thewaterproject.org/',
+//                 name: 'The Water Project'
+//             },
+//             qotd: false
+//         })
+//         await newQuote.save()
+//         quotes.push(newQuote)
+
+//     }
+    
+//     return res.send(quotes)
+// })
 //------------------------------------------------------------------------------------------------
 //remove a quote -- do this manually?
 //update a quote -- do this manually?
