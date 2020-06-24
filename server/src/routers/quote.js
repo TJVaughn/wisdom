@@ -7,6 +7,7 @@ const router = new express.Router()
 const agenda = require('../jobs/agenda')
 const nativeQuotes = require('../rawHtml/NativeQuotes')
 const { default: Axios } = require('axios')
+const africanQuotes = require('../rawHtml/AfricanQuotes')
 
 router.post('/api/pick-new-quote', async(req, res) => {
     //only one user, no need to add a whole thing for auth
@@ -158,10 +159,35 @@ router.get('/api/email/unsubscribe-email', async (req, res) => {
     }
 })
 router.get('/parse-content', async (req, res) => {
-    let content = nativeQuotes
-    content = content.toString()
-    content = content.split('</p>')
-    return res.send(content)
+    let content = africanQuotes
+    content = content.split(/\n/)
+    for(let i = 0; i < content.length; i ++) {
+        content[i] = content[i].split('~')
+    }
+    let quotes = []
+    for(let i = 0; i < content.length; i++){
+        let message = content[i][0].trim()
+        let source = content[i][1].trim()
+        // let quote = {
+        //     message,
+        //     source
+        // }
+        const newQuote = new Quote({
+            message: message,
+            source: source,
+            type: "African",
+            charity: {
+                link: 'https://thewaterproject.org/',
+                name: 'The Water Project'
+            },
+            qotd: false
+        })
+        await newQuote.save()
+        quotes.push(newQuote)
+
+    }
+    
+    return res.send(quotes)
 })
 //------------------------------------------------------------------------------------------------
 //remove a quote -- do this manually?

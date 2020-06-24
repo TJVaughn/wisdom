@@ -6,6 +6,7 @@ import VerifyEmailRouter from './modules/VerifyEmailRouter';
 import UnsubscribeEmailRouter from './modules/UnsubscribeEmailRouter';
 import Charities from './modules/Charities';
 import AddQuoteRouter from './modules/AddQuoteRouter';
+import Footer from './modules/Footer';
 
 
 function IndexRouter(props){
@@ -40,6 +41,7 @@ class AppRouter extends Component {
                         <Route path={'/quote/add'} component={AddQuoteRouter} />
                     </Switch>
                 </Router>
+                <Footer />
     		</div>
     	);
     }
