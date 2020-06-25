@@ -6,21 +6,22 @@ const sendVerificationEmail = require('../email/sendVerificationEmail')
 const router = new express.Router()
 const agenda = require('../jobs/agenda')
 // const nativeQuotes = require('../rawHtml/NativeQuotes')
-const { default: Axios } = require('axios')
-const africanQuotes = require('../rawHtml/AfricanQuotes')
-const postTweet = require('../twitter/tweet')
+// const { default: Axios } = require('axios')
+// const africanQuotes = require('../rawHtml/AfricanQuotes')
+// const postTweet = require('../twitter/tweet')
 
 router.post('/api/pick-new-quote', async(req, res) => {
     //only one user, no need to add a whole thing for auth
     if(req.body.username !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){
         return res.send({error: "nah"})
     }
-    if(req.body.daily === 'start'){
+    if(req.body.oneOff){
         await agenda.start()
         // await agenda.every('10 seconds', 'pickQOTD')
         await agenda.schedule('1 second', 'pickQOTD', {oneOff: true})
         return res.send({message: "starting..."})
     }
+//daily is in index.js
 
 })
 
