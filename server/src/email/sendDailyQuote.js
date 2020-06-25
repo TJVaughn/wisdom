@@ -100,7 +100,7 @@ const sendEmail = async (email, quote) => {
         </h3>
         <hr />
         <p>
-            Interested in helping?
+            Interested in helping? For each day of the week we have chosen to support a different charity or individual. 
         </p>
         <p>
             Today we are supporting <a href="${link}" >${name}</a>. 
