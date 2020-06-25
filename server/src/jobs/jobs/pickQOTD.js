@@ -1,5 +1,6 @@
 const Quote = require('../../models/Quote')
 const sendDailyQuote = require('../../email/sendDailyQuote')
+const postTweet = require('../../twitter/tweet')
 
 const shuffle = (array) => {
     for(let i = array.length - 1; i > 0; i--){
@@ -40,8 +41,15 @@ module.exports = (agenda) => {
             // console.log(new Date(newQOTD.lastDateWasQotd - 2592000 * 1000))
             await newQOTD.save()
             await sendDailyQuote(newQOTD)
-            if(job.attrs.data.oneOff){
-                await job.remove()
+            const tweet = `
+                "${newQOTD.message}" -- ${newQOTD.source}.
+                Visit AncientWisdom.io to get the daily quote in your inbox!
+            `
+            postTweet(tweet)
+            if(job.attrs.data){
+                if(job.attrs.data.oneOff){
+                    await job.remove()
+                }
             }
             done()
         } catch (error) {

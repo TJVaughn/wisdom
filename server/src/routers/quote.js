@@ -8,6 +8,7 @@ const agenda = require('../jobs/agenda')
 // const nativeQuotes = require('../rawHtml/NativeQuotes')
 const { default: Axios } = require('axios')
 const africanQuotes = require('../rawHtml/AfricanQuotes')
+const postTweet = require('../twitter/tweet')
 
 router.post('/api/pick-new-quote', async(req, res) => {
     //only one user, no need to add a whole thing for auth
@@ -21,20 +22,6 @@ router.post('/api/pick-new-quote', async(req, res) => {
         return res.send({message: "starting..."})
     }
 
-})
-
-router.post('/api/test/tweet', async (req, res) => {
-    try {
-        let twitterRes = await Axios({
-            url: 'https://api.twitter.com/1.1/statuses/update.json?status=test',
-            headers: {
-                authorization: 'OAuth'
-            }
-        })
-        return res.send(twitterRes)
-    } catch (error) {
-        return {error: "Error from tweet: " + error}
-    }
 })
 
 //email signup
@@ -158,44 +145,55 @@ router.get('/api/email/unsubscribe-email', async (req, res) => {
         return {error: "Error from unsubscribe: " + error}
     }
 })
-router.get('/api/remove-african-quotes', async(req, res) => {
-    const quotes = await Quote.find({type: "African"})
-    for (let i = 0; i < quotes.length; i ++){
-        await quotes[i].remove()
-    }
-    return res.send(quotes)
-})
-router.get('/parse-content', async (req, res) => {
-    let content = africanQuotes
-    content = content.split(/\n/)
-    for(let i = 0; i < content.length; i ++) {
-        content[i] = content[i].split('~')
-    }
-    let quotes = []
-    for(let i = 0; i < content.length; i++){
-        let message = content[i][0].trim()
-        let source = content[i][1].trim()
-        // let quote = {
-        //     message,
-        //     source
-        // }
-        const newQuote = new Quote({
-            message: message,
-            source: source,
-            type: "African",
-            charity: {
-                link: 'https://thewaterproject.org/',
-                name: 'The Water Project'
-            },
-            qotd: false
-        })
-        await newQuote.save()
-        quotes.push(newQuote)
 
-    }
+// router.get('/api/tweet', async (req, res) => {
+//     try {
+//         postTweet("Hello from node!!")
+//         return res.send('Tweeted')
+//     } catch (error) {
+//         return {error: "Error from tweet: " + error}
+//     }
+// })
+
+// router.get('/api/remove-african-quotes', async(req, res) => {
+//     const quotes = await Quote.find({type: "African"})
+//     for (let i = 0; i < quotes.length; i ++){
+//         await quotes[i].remove()
+//     }
+//     return res.send(quotes)
+// })
+
+// router.get('/parse-content', async (req, res) => {
+//     let content = africanQuotes
+//     content = content.split(/\n/)
+//     for(let i = 0; i < content.length; i ++) {
+//         content[i] = content[i].split('~')
+//     }
+//     let quotes = []
+//     for(let i = 0; i < content.length; i++){
+//         let message = content[i][0].trim()
+//         let source = content[i][1].trim()
+//         // let quote = {
+//         //     message,
+//         //     source
+//         // }
+//         const newQuote = new Quote({
+//             message: message,
+//             source: source,
+//             type: "African",
+//             charity: {
+//                 link: 'https://thewaterproject.org/',
+//                 name: 'The Water Project'
+//             },
+//             qotd: false
+//         })
+//         await newQuote.save()
+//         quotes.push(newQuote)
+
+//     }
     
-    return res.send(quotes)
-})
+//     return res.send(quotes)
+// })
 //------------------------------------------------------------------------------------------------
 //remove a quote -- do this manually?
 //update a quote -- do this manually?
