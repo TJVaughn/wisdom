@@ -41,6 +41,10 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(port, () => {
     console.log("Server is listening on port: " + port)
 })  
-
+process.on('SIGINT', function() {
+    console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
+    // some other closing procedures go here
+    process.exit(1);
+  });
 //from d/programs
 //mongodb/bin/mongod.exe --dbpath=mongodb-data

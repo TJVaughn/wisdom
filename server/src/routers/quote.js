@@ -21,12 +21,12 @@ router.post('/api/send-single-email', async(req, res) => {
         if(req.body.username !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){
             return res.send({error: "nah"})
         }
-        // const users = await User.find()
-        // console.log(users)
-        // users.forEach( async(u) => {
-        //     console.log(u.email)
-        //     await sendSingleEmail('hauck.trevor@gmail.com')
-        // })
+        const users = await User.find()
+        console.log(users)
+        users.forEach( async(u) => {
+            console.log(u.email)
+            // await sendSingleEmail('hauck.trevor@gmail.com')
+        })
         // const sendEmails = async(allUsers) => {
         //     for(let i = 0; i < allUsers.length; i++){
         //         console.log(allUsers[i].email)
@@ -35,7 +35,7 @@ router.post('/api/send-single-email', async(req, res) => {
         // }
         // await sendEmails(users)
         await sendSingleEmail()
-        return res.send({success: "Emails sent to database"})
+        return res.send(users)
     } catch (error) {
         return res.send({error: "Error from singlequote: " + error})
     }
@@ -175,6 +175,14 @@ router.get('/api/email/unsubscribe-email', async (req, res) => {
     } catch (error) {
         return {error: "Error from unsubscribe: " + error}
     }
+})
+
+router.post('/api/read-all-quotes', async (req, res) => {
+    if(req.body.username !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){
+        return res.send({error: "nah"})
+    }
+    const quotes = await Quote.find()
+    return res.send({quotes})
 })
 
 // router.get('/api/tweet', async (req, res) => {
