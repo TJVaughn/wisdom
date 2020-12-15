@@ -91,16 +91,9 @@ const sendEmail = async (email, quote) => {
         from: 'quote@ancientwisdom.io',
         subject: 'Your Daily Quote',
         html: `
-        <h1>Your Quote: </h1>
-        <h2>
-            "${quote.message}"
-        </h2>
-        <h3>
-            --${quote.source}
-        </h3>
-        <hr />
+        <h2>Interested in helping?</h2>
         <p>
-            Interested in helping? For each day of the week we have chosen to support a different charity or individual. 
+            For each day of the week we have chosen to support a different charity or individual. 
         </p>
         <p>
             Today we are supporting <a href="${link}" >${name}</a>. 
@@ -110,6 +103,14 @@ const sendEmail = async (email, quote) => {
         </p>
 
         <hr />
+
+        <h1>Your Quote: </h1>
+        <h2>
+            "${quote.message}"
+        </h2>
+        <h3>
+            --${quote.source}
+        </h3>
 
         <p>
         ...

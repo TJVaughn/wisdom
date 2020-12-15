@@ -3,13 +3,43 @@ const Quote = require('../models/Quote')
 const User = require('../models/User')
 const mongoose = require('mongoose')
 const sendVerificationEmail = require('../email/sendVerificationEmail')
+const sendSingleEmail = require('../email/sendSingleEmail')
 const router = new express.Router()
 const agenda = require('../jobs/agenda')
 // const nativeQuotes = require('../rawHtml/NativeQuotes')
 // const { default: Axios } = require('axios')
 // const africanQuotes = require('../rawHtml/AfricanQuotes')
 // const postTweet = require('../twitter/tweet')
-
+// const checkUser = (username, pass) => {
+//     if(username !== process.env.USERNAME || pass !== process.env.PASSWORD){
+//         return false
+//     }
+//     return true
+// }
+router.post('/api/send-single-email', async(req, res) => {
+    try {
+        if(req.body.username !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){
+            return res.send({error: "nah"})
+        }
+        // const users = await User.find()
+        // console.log(users)
+        // users.forEach( async(u) => {
+        //     console.log(u.email)
+        //     await sendSingleEmail('hauck.trevor@gmail.com')
+        // })
+        // const sendEmails = async(allUsers) => {
+        //     for(let i = 0; i < allUsers.length; i++){
+        //         console.log(allUsers[i].email)
+        //         await sendSingleEmail(allUsers[i].email)
+        //     }
+        // }
+        // await sendEmails(users)
+        await sendSingleEmail()
+        return res.send({success: "Emails sent to database"})
+    } catch (error) {
+        return res.send({error: "Error from singlequote: " + error})
+    }
+})
 router.post('/api/pick-new-quote', async(req, res) => {
     //only one user, no need to add a whole thing for auth
     if(req.body.username !== process.env.USERNAME || req.body.password !== process.env.PASSWORD){

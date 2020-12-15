@@ -7,11 +7,12 @@
   "license": "MIT",
   "node version": "12.13.0",
   "scripts": {
+    "database": "cd ~/Documents/mongodb/mongodb-org-server_4.4.1_amd64/data/usr/bin && mongod --dbpath=mongodb-data",
     "start": "node index.js",
-    "client": "cd client && yarn start",
     "server": "env-cmd -f ./server/config/dev.env nodemon index.js",
-    "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn database\" \"yarn server\" \"yarn client\"",
+    "heroku-postbuild": "cd client && yarn install && yarn install --only=dev --no-shrinkwrap && yarn build"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.2.0",
