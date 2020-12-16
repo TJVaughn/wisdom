@@ -22,19 +22,7 @@ router.post('/api/send-single-email', async(req, res) => {
             return res.send({error: "nah"})
         }
         const users = await User.find()
-        console.log(users)
-        users.forEach( async(u) => {
-            console.log(u.email)
-            // await sendSingleEmail('hauck.trevor@gmail.com')
-        })
-        // const sendEmails = async(allUsers) => {
-        //     for(let i = 0; i < allUsers.length; i++){
-        //         console.log(allUsers[i].email)
-        //         await sendSingleEmail(allUsers[i].email)
-        //     }
-        // }
-        // await sendEmails(users)
-        await sendSingleEmail()
+        await sendSingleEmail(req.body.subject, req.body.message)
         return res.send(users)
     } catch (error) {
         return res.send({error: "Error from singlequote: " + error})
