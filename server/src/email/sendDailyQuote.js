@@ -91,19 +91,6 @@ const sendEmail = async (email, quote) => {
         from: 'quote@ancientwisdom.io',
         subject: 'Your Daily Quote',
         html: `
-        <h2>Interested in helping?</h2>
-        <p>
-            For each day of the week we have chosen to support a different charity or individual. 
-        </p>
-        <p>
-            Today we are supporting <a href="${link}" >${name}</a>. 
-        </p>
-        <p>
-        ${snippet}
-        </p>
-
-        <hr />
-
         <h1>Your Quote: </h1>
         <h2>
             "${quote.message}"
@@ -111,7 +98,6 @@ const sendEmail = async (email, quote) => {
         <h3>
             --${quote.source}
         </h3>
-
         <p>
         ...
         </p>
@@ -125,3 +111,34 @@ const sendEmail = async (email, quote) => {
 }
 
 module.exports = sendDailyQuote
+
+// `
+//         <h2>Interested in helping?</h2>
+//         <p>
+//             For each day of the week we have chosen to support a different charity or individual. 
+//         </p>
+//         <p>
+//             Today we are supporting <a href="${link}" >${name}</a>. 
+//         </p>
+//         <p>
+//         ${snippet}
+//         </p>
+
+//         <hr />
+
+//         <h1>Your Quote: </h1>
+//         <h2>
+//             "${quote.message}"
+//         </h2>
+//         <h3>
+//             --${quote.source}
+//         </h3>
+
+//         <p>
+//         ...
+//         </p>
+        
+//         <p style="font-size: 0.8em;" >
+//             We'd hate to see you go, but if you wish to <a href="${url}/email/unsubscribe?email=${email}" >unsubscribe</a>, we understand.
+//         </p>
+//         `
