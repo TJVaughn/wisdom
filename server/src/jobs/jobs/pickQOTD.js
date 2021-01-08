@@ -43,9 +43,7 @@ module.exports = (agenda) => {
             await sendDailyQuote(newQOTD)
             const tweet = `
                 "${newQOTD.message}" -- ${newQOTD.source}.
-from ${newQOTD.type}.
-Visit AncientWisdom.io to get the daily quote in your inbox!
-#quote #wisdom`
+                #quote #wisdom #${newQOTD.source}`
             postTweet(tweet)
             if(job.attrs.data){
                 if(job.attrs.data.oneOff){
