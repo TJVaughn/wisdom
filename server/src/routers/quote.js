@@ -173,14 +173,14 @@ router.post('/api/read-all-quotes', async (req, res) => {
     return res.send({quotes})
 })
 
-// router.get('/api/tweet', async (req, res) => {
-//     try {
-//         postTweet("Hello from node!!")
-//         return res.send('Tweeted')
-//     } catch (error) {
-//         return {error: "Error from tweet: " + error}
-//     }
-// })
+router.get('/api/tweet', async (req, res) => {
+    try {
+        postTweet("Hello from node!!")
+        return res.send('Tweeted')
+    } catch (error) {
+        return {error: "Error from tweet: " + error}
+    }
+})
 
 // router.get('/api/remove-african-quotes', async(req, res) => {
 //     const quotes = await Quote.find({type: "African"})
