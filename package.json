@@ -30,6 +30,6 @@
     "nodemon": "^2.0.4",
     "react-router-dom": "^5.2.0",
     "twit": "^2.2.11",
-    "validator": "^13.1.1"
+    "validator": "^13.7.0"
   }
 }
